@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/var/www/html/nastroj_2019/bootstrap/app.php</file>
+            <file>file:/var/www/html/nastroj_2019/app/Http/Controllers/ControllerMood.php</file>
+            <file>file:/var/www/html/nastroj_2019/resources/assets/js/bootstrap.js</file>
+            <file>file:/var/www/html/nastroj_2019/resources/assets/sass/app.scss</file>
+            <file>file:/var/www/html/nastroj_2019/resources/views/Main/Main.blade.php</file>
+            <file>file:/var/www/html/nastroj_2019/resources/lang/en/passwords.php</file>
+            <file>file:/var/www/html/nastroj_2019/app/Http/Controllers/ControllerUser.php</file>
+            <file>file:/var/www/html/nastroj_2019/resources/views/Layout/Main.blade.php</file>
+            <file>file:/var/www/html/nastroj_2019/resources/views/User/Login.blade.php</file>
+            <file>file:/var/www/html/nastroj_2019/public/js/app.js</file>
+            <file>file:/var/www/html/nastroj_2019/resources/views/Main/addMood.blade.php</file>
+            <file>file:/var/www/html/nastroj_2019/public/css/app.css</file>
+            <file>file:/var/www/html/nastroj_2019/resources/views/Main/addSleep.blade.php</file>
+            <file>file:/var/www/html/nastroj_2019/app/Mood.php</file>
+            <file>file:/var/www/html/nastroj_2019/public/index.php</file>
+            <file>file:/var/www/html/nastroj_2019/app/Http/Services/drugs.php</file>
+            <file>file:/var/www/html/nastroj_2019/resources/assets/js/app.js</file>
+            <file>file:/var/www/html/nastroj_2019/resources/views/Ajax/succes.blade.php</file>
+            <file>file:/var/www/html/nastroj_2019/resources/assets/sass/_variables.scss</file>
+            <file>file:/var/www/html/nastroj_2019/resources/assets/js/components/ExampleComponent.vue</file>
+            <file>file:/var/www/html/nastroj_2019/routes/web.php</file>
+            <file>file:/var/www/html/nastroj_2019/app/Http/Controllers/Controller.php</file>
+            <file>file:/var/www/html/nastroj_2019/resources/views/Layout/kalendar.blade.php</file>
+            <file>file:/var/www/html/nastroj_2019/app/Http/Services/calendar.php</file>
+            <file>file:/var/www/html/nastroj_2019/app/Sleep.php</file>
+            <file>file:/var/www/html/nastroj_2019/app/Http/Services/common.php</file>
+            <file>file:/var/www/html/nastroj_2019/resources/views/Ajax/description.blade.php</file>
+            <file>file:/var/www/html/nastroj_2019/resources/views/Main/showMood.blade.php</file>
+            <file>file:/var/www/html/nastroj_2019/.env</file>
+            <file>file:/var/www/html/nastroj_2019/app/Http/Controllers/ControllerMain.php</file>
+            <file>file:/var/www/html/nastroj_2019/resources/views/Layout/User.blade.php</file>
+            <file>file:/var/www/html/nastroj_2019/app/Http/Services/mood.php</file>
+        </group>
+    </open-files>
+</project-private>
