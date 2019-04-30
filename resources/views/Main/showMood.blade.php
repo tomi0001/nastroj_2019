@@ -19,23 +19,34 @@
     <br>
     <div class='mood'>
         
-    <table class=' table table-borderless '>
+    
 
         @for ($i = 0;$i < count($listMood);$i++)
         @php
         $j = $i+1;
         @endphp
-                    <tr class="border">
-                <td colspan="5">
-                    
-                </td>
-            </tr>
+        @if ($listMood[$i]["type"] == 1)
+        <div class='titleMood'>
+            <div class='center background'>{{$j}}</div>
+            <table class=' table table-borderless '>
                  <tr class='idMood{{$i}} ' >
 
                     <td colspan="5" class='boldTitle'>
-                        <div class='center'>{{$j}}</div>
+                        
                     </td>
                 </tr>
+        @else
+        
+                <div class='titleSleep'>
+            <div class='center background'>{{$j}}</div>
+            <table class=' table table-borderless '>
+                 <tr class='idMood{{$i}} ' >
+
+                    <td colspan="5" class='boldTitle'>
+                        
+                    </td>
+                </tr>
+        @endif
             @if ($listMood[$i]["type"] == 1)
                 <tr class='idMood{{$i}}'>
 
@@ -86,7 +97,7 @@
                    <tr class='idMood{{$i}}'>
                     <td>
                         @if ($listMood[$i]["drugs"] != "")
-                        <button onclick="showDrugs('{{url('/Drugs/show')}}')" class="btn btn-primary">Pokaż leki</button>
+                        <button onclick="showDrugs('{{url('/Drugs/show')}}',{{$i}},{{$listMood[$i]["id"]}})" class="btn btn-primary">Pokaż leki</button>
                         @else
                         <button class="btn btn-danger" disabled>Nie było leków</button>
                         @endif
@@ -94,7 +105,7 @@
                     </td>
                     <td>
      
-                        <button onclick="addDrugs({{$i}})" class="btn btn-primary">Dodaj leki</button>
+                        <button onclick="addDrugs('{{ url('/Drugs/addDrugs')}}',{{$i}},{{$listMood[$i]["id"]}})" class="btn btn-primary">Dodaj leki</button>
                        
                     </td>
                     <td>
@@ -104,7 +115,7 @@
                     </td>
                     <td>
      
-                        <button onclick="addDescription('{{url('/Mood/addDescription')}}')" class="btn btn-primary">Edytuj dodaj opis</button>
+                        <button onclick="addDescription('{{url('/Mood/addDescription')}}',{{$listMood[$i]["id"]}},{{$i}})" class="btn btn-primary">Edytuj dodaj opis</button>
                        
                     </td>
                     <td>
@@ -122,10 +133,23 @@
                     
                 </tr>
                 <tr>
+                    <td colspan="5">
+                        <div id="showFieldText{{$i}}" class='center' style='width: 50%;'></div>
+                        
+                    </td>
+                </tr>
+                
+                <tr>
                     
                     <td colspan="5">
-                        
-                        <div class="drugss{{$i}} center " style='width: 50%;'></div>
+                        <form id='addDrugsssss{{$i}}' method='get'>
+                        <div class="drugss{{$i}} center " style='width: 80%;'>
+                            
+                                
+                                
+                        </div>                            
+                        </form>
+
                     </td>
                     
                     
@@ -139,6 +163,14 @@
                     
                     
                 </tr>
+                <tr>
+                    
+                    <td colspan='5'>
+                        <div id='addDrugsResult{{$i}}' class='center'></div>
+                        
+                    </td>
+                </tr>
+                
             @else
                  <tr class='idMood{{$i}}'>
 
@@ -178,14 +210,26 @@
                 </tr>
                 @endif
             @endif
-            <tr class='idMood{{$i}}'>
-                <td colspan="5">
-                    <br><br>
+            <tr>
+                <td colspan='5'>
+                    
+                    <div id='showDrugss{{$i}}' class='showDrugs'></div>
                 </td>
             </tr>
-
+            <tr>
+                <td colspan="5">
+                    
+                </td>
+            </tr>
+            <tr class='idMood{{$i}}'>
+                <td colspan="5">
                    
+                </td>
+            </tr>
+</table>
+                        </div> 
+        <br>
         @endfor
-    </table>
+    
     </div>
 </div>

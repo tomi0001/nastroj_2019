@@ -1,4 +1,4 @@
 <div class='description center'>
-    {{$description}}
+    {!!$description!!}
     
 </div>

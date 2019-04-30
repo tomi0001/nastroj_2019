@@ -31,6 +31,8 @@ class mood extends Drugs {
     public $level = [];
     public $startDay;
     public $dateStart;
+    public $hourStart;
+    public $hourEnd;
     public $dateEnd;
     public $dateStartHour;
     public $dateEndHour;
@@ -43,9 +45,11 @@ class mood extends Drugs {
     public $colorDay = [];
     public function selectHourLastMoods(int $idUsers) {
         $Moods = new Moods;
+
+                
         $time = $Moods->where("id_users",$idUsers)
                 ->orderBy("date_end","DESC")->first();
-        if (count($time) == 0) {
+        if ($time == "") {
             return [date("Y-m-d"),date("H:i")];
         }
         else {
@@ -236,10 +240,12 @@ class mood extends Drugs {
     }
      * 
      */
-    public function sortMoodsSleep($listMoods,$listSleep) :bool {
+    public function sortMoodsSleep($listMoods,$listSleep,$whatWork,$bool = false) :bool {
+        $Common = new Common;
         $arraySecond = [];
         $i = 0;
         foreach ($listMoods as $Moodss) {
+            
             //$this->arrayList[$i]["date_start_second"] = strtotime($Moodss->date_start);
             $this->arrayList[$i]["date_start"] = $Moodss->date_start;
             $this->arrayList[$i]["date_end"] = $Moodss->date_end;
@@ -249,14 +255,32 @@ class mood extends Drugs {
             $this->arrayList[$i]["level_anxiety"] = $Moodss->level_anxiety;
             $this->arrayList[$i]["level_nervousness"] = $Moodss->level_nervousness;
             $this->arrayList[$i]["level_stimulation"] = $Moodss->level_stimulation;
+            $this->arrayList[$i]["nas"] = $Moodss->nas;
+            $this->arrayList[$i]["nas2"] = $Moodss->nas2;
+            $this->arrayList[$i]["nas3"] = $Moodss->nas3;
+            $this->arrayList[$i]["nas4"] = $Moodss->nas4;
+            $this->arrayList[$i]["color_nas"] = $this->setColor(array("mood"=>$Moodss->nas));
             $this->arrayList[$i]["color_mood"] = $this->setColor(array("mood"=>$this->arrayList[$i]["level_mood"]));
             $this->arrayList[$i]["color_anxiety"] = -$this->setColor(array("mood"=>$this->arrayList[$i]["level_mood"],"anxiety"));
             $this->arrayList[$i]["color_nervousness"] = -$this->setColor(array("mood"=>$this->arrayList[$i]["level_mood"],"nervousness"));
             $this->arrayList[$i]["color_stimulation"] = $this->setColor(array("mood"=>$this->arrayList[$i]["level_mood"],"stimulation"));
-            $this->arrayList[$i]["drugs"] = $Moodss->id_drugs;
-            if ($Moodss->what_work != "") {
+            $this->arrayList[$i]["drugs"] = $Moodss->drugs;
+            if ($whatWork == "on") {
+                $this->arrayList[$i]["what_work"] = $Common->charset_utf_fix($Moodss->what_work,true);
+                
+            }
+            else if ($Moodss->what_work != "" and $whatWork == "off") {
                 $this->arrayList[$i]["what_work"] = true;
             }
+            /*
+            else if ($whatWork == "on") {
+                
+                    $this->arrayList[$i]["what_work"] = $Common->charset_utf_fix($Moodss->what_work,true);
+                
+          
+            }
+             * 
+             */
             else {
                 $this->arrayList[$i]["what_work"] = false;
             }
@@ -266,10 +290,17 @@ class mood extends Drugs {
             $this->arrayList[$i]["type"] = 1;
             $this->arrayList[$i]["percent"] = 0;
             $this->arrayList[$i]["id"] = $Moodss->id;
+            //if ($bool == false) {
+                   $this->arrayList[$i]["year"] = $Moodss->year;
+                   $this->arrayList[$i]["month"] = $Moodss->month;
+                   $this->arrayList[$i]["day"] = $Moodss->day;
+                   $this->arrayList[$i]["dat"] = $Moodss->dat;
+            //}
             //$arrayList[$i][""] = 1;
             $i++;
         }
         foreach ($listSleep as $Sleeps) {
+            
             //$this->arrayList[$i]["date_start_second"] = strtotime($Sleeps->date_start);
             $this->arrayList[$i]["date_start"] = $Sleeps->date_start;
             $this->arrayList[$i]["date_end"] = $Sleeps->date_end;
@@ -282,6 +313,11 @@ class mood extends Drugs {
             $this->arrayList[$i]["level_anxiety"] = 0;
             $this->arrayList[$i]["level_nervousness"] = 0;
             $this->arrayList[$i]["level_stimulation"] = 0;
+            $this->arrayList[$i]["nas"] = $Sleeps->nas;
+            $this->arrayList[$i]["nas2"] = $Sleeps->nas2;
+            $this->arrayList[$i]["nas3"] = $Sleeps->nas3;
+            $this->arrayList[$i]["nas4"] = $Sleeps->nas4;
+            $this->arrayList[$i]["color_nas"] = $this->setColor(array("mood"=>$Sleeps->nas));
             $this->arrayList[$i]["color_mood"] = 0;
             $this->arrayList[$i]["color_anxiety"] = 0;
             $this->arrayList[$i]["color_nervousness"] = 0;
@@ -289,15 +325,24 @@ class mood extends Drugs {
             $this->arrayList[$i]["what_work"] = false;
             $this->arrayList[$i]["drugs"] = 0;
             $this->arrayList[$i]["id"] = $Sleeps->id;
-            
+            //if ($bool == false) {
+                   $this->arrayList[$i]["year"] = $Sleeps->year;
+                   $this->arrayList[$i]["month"] = $Sleeps->month;
+                   $this->arrayList[$i]["day"] = $Sleeps->day;
+                   $this->arrayList[$i]["dat"] = $Sleeps->dat;
+            //}
             $i++;
         }
         //print "a";
         //$array = $arrayList;
         //var_dump($arraySecond);
+        //print $i;
         if ($i != 0) {
+            
             array_multisort($arraySecond,SORT_ASC);
-            array_multisort($this->arrayList,SORT_ASC);
+            if ($bool == true) {
+                array_multisort($this->arrayList,SORT_ASC);
+            }
             $longSecond = count($arraySecond);
             $this->listPercent = $this->sumPercent($arraySecond[$longSecond-1],$this->arrayList);
             return true;
@@ -309,9 +354,12 @@ class mood extends Drugs {
         //var_dump($arrayList);
         
     }
-    private function sumPercent(int $second,array $list) {
+    public function sumPercent(int $second,array $list) {
         for ($i=0;$i < count($list);$i++) {
             $list[$i]["percent"] = round(($list[$i]["second"] / $second) * 100);
+            if ($list[$i]["percent"] == 0) {
+                $list[$i]["percent"] = 1;
+            }
             $list[$i]["second"] = $this->changeSecondAtHour($list[$i]["second"] / 3600);
             
         }
@@ -334,6 +382,26 @@ class mood extends Drugs {
         }
         return $hour . " Godzin";
         
+    }
+    public function selectDescription($id) {
+        $Moods = new Moods;
+        $idUsers = Auth::User()->id;
+        $Common = new Common;
+        
+        $description = $Moods->where("id_users",$idUsers)
+                ->where("id",$id)
+                ->first();
+        
+        return $Common->charset_utf_fix($description->what_work,true);
+    }
+    public function updateDescription($id,$description) {
+        $Moods = new Moods;
+        $Common = new Common;
+        $description = $Common->charset_utf_fix2($description);
+        $idUsers = Auth::User()->id;
+        $description2 = $Moods->where("id_users",$idUsers)
+                ->where("id",$id)
+                ->update(['what_work'=>$description]);
     }
     public function downloadMood(int $idUsers,$year,$month,$day) {
         $Moods = new Moods;
@@ -397,7 +465,7 @@ class mood extends Drugs {
       //  $date = $year . "-" . $month . "-" . $day . " " . $this->startDay . ":00:00";
         $this->listMood = $Moods->leftjoin("forwarding_drugs","moods.id","forwarding_drugs.id_mood")
                 ->selectRaw("moods.id as id")
-                ->selectRaw("forwarding_drugs.id_drugs as drugs")
+                ->selectRaw("forwarding_drugs.id_mood as drugs")
                 ->selectRaw("moods.date_start as date_start")
                 ->selectRaw("moods.date_end as date_end")
                 ->selectRaw("moods.level_mood as level_mood")
@@ -412,6 +480,8 @@ class mood extends Drugs {
                 ->where("moods.date_start",">=",$this->dateStart)
                 ->where("moods.date_start","<",$this->dateEnd)
                 ->get();
+        //print ("<pre>");
+        //print_r ($this->listMood);
         return $this->listMood;
         //var_dump($list);
     }
@@ -419,19 +489,48 @@ class mood extends Drugs {
         $Sleep = new Sleep;
         //$this->setHour($year,$month,$day);
         $this->setHourSleep($year,$month,$day);
+        //print $this->dateStartHour;
+        //print $this->dateEndHour;
         $list = $Sleep
                 ->where("id_users",$idUsers)
                 ->where("date_start",">=",$this->dateStartHour)
                 ->where("date_start","<",$this->dateEndHour)
+                //->where("date_end",">=", $this->)
                 ->get();
         return $list;
     }
+    public function selectSleep(int $idUsers,$dateStart,$dateEnd,$bool = false) {
+        $Sleep = Sleep::query();
+        $hour = Auth::User()->start_day;
+        $Sleep->select(DB::Raw("(DATE(IF(HOUR(date_start) >= '$hour', date_start,Date_add(date_start, INTERVAL - 1 DAY) )) ) as dat  "))
+                ->selectRaw("date_start as date_start")
+                ->selectRaw("date_end as date_end")
+                ->selectRaw("how_wake_up as how_wake_up")
+                ->where("id_users",$idUsers);
+                if ($dateStart != "") {
+                    $Sleep->where("date_start",">=",$dateStart);
+                }
+                if ($dateEnd != "") {
+                    $Sleep->where("date_start","<",$dateEnd);
+                }
+                //if ($bool == true) {
+                  //  $list_sleep =    $Sleep->get();
+                  //  return $list_sleep;
+                //}
+                //else {
+                    $list =    $Sleep->get();
+                    return $list;
+                //}
+            
+        
+        
+    }
     private function setHourSleep($year,$month,$day) {
         $second = strtotime($year . "-" . $month . "-" . $day . " " . $this->startDay . ":00:00");
-        $second +- (3600 * 9);
-        $second2 = $second + (3600 * 24);
-        $this->dateStartHour = date("Y-m-d H:i:s",$second);
-        $this->dateEndHour = date("Y-m-d H:i:s",$second2);
+        $second2 = $second -  (3600 * 9);
+        $second3 = $second + (3600 * 24);
+        $this->dateStartHour = date("Y-m-d H:i:s",$second2);
+        $this->dateEndHour = date("Y-m-d H:i:s",$second3);
                 
     }
     private function setHourMood($year,$month,$day,$bool = false) {
@@ -477,7 +576,9 @@ class mood extends Drugs {
             $this->checkHour(Input::get("start_mood_date") . " " . Input::get("start_mood_time") . ":00",
                     Input::get("end_mood_date") . " " . Input::get("end_mood_time") . ":00");
         }
-        $this->checkDrugs(Input::get("name"),Input::get("dose"),Input::get("date"),Input::get('time'));
+        //if (isset(Input::get("name"))) {
+            $this->checkDrugs(Input::get("name"),Input::get("dose"),Input::get("date"),Input::get('time'));
+        //}
     }
     public function checkFieldSleep() {
         if (Input::get("start_sleep_time") == "" or Input::get("start_sleep_date") == "") {
@@ -561,7 +662,7 @@ class mood extends Drugs {
             array_push($this->level, $level);
         }
     }
-    private function checkHourMood($dateStart,$dateEnd) {
+    public function checkHourMood($dateStart,$dateEnd) {
         $Moods = new Moods;
         $Sleep = new Sleep;
         $checkMood = $Moods->where("date_end",">=",$dateStart)
@@ -569,6 +670,7 @@ class mood extends Drugs {
         $checkSleep = $Sleep->where("date_end",">=",$dateStart)
                 ->where("date_start","<=",$dateEnd)->first();
         if (empty($checkMood) and empty($checkSleep)) {
+            //array_push($this->errors, "Godzina nie znajduje się w przedziale czasowym nastroju");
             return true;
         }
         else {
@@ -578,7 +680,21 @@ class mood extends Drugs {
           //      ->orwhere("date_end",">=",$dateEnd)->first();
                 
     }
-    
+    public function selectHourMood($idMood) {
+        $idUsers = Auth::User()->id;
+        $Moods = new Moods;
+        $check = $Moods->where("id_users",$idUsers)
+                        ->where("id",$idMood)->first();
+        if (empty($check)) {
+            array_push($this->errors, "Wybrałeś błędny nastroj");
+            return false;
+        }
+        else {
+            $this->hourStart = $check->date_start;
+            $this->hourEnd = $check->date_end;
+            return true;
+        }
+    }
     private function checkHour($dateStart,$dateEnd,$type = "Nastrój") {
         $this->second1 = strtotime($dateStart);
         $this->second2 = strtotime($dateEnd);
@@ -601,10 +717,11 @@ class mood extends Drugs {
     public function showDescription() {
         $idUsers = Auth::User()->id;
         $Moods = new Moods;
+        $Common = new Common;
         $description = $Moods->where("id_users",$idUsers)
                 ->where("id",Input::get("id"))
                 ->first();
-        return $description->what_work;
+        return $Common->charset_utf_fix($description->what_work);
         
     }
     public function deleteMood() {

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-
+use App\Mood as Moods;
 class common
 {
     public function charset_utf_fix2($string) {
@@ -30,14 +30,16 @@ class common
 	  "ś" => "%u015B",
 	  "ź" => "%u017A",
 	  "ż" => "%u017C",
-          " " => "&nbsp"
+          " " => "&nbsp",
+            "\n" => "<br>"
+            
 	);
 	
 	return str_replace(array_keys($utf), array_values($utf), $string);
         
 	
     }
-    public function charset_utf_fix($string) {
+    public function charset_utf_fix($string,$bool = false) {
  
 	$utf = array(
 	 "%u0104" => "Ą",
@@ -60,11 +62,24 @@ class common
 	 "%u017C" => "ż",
          "%20" => " ",
             "&nbsp" => " "
+            
 	);
-	
+	if ($bool == true) {
+            $utf["<br>"] = "\n";
+            //array_push($utf, "<br>" => "\n")
+	 
+                
+        }
 	return str_replace(array_keys($utf), array_values($utf), $string);
         
 	
+    }
+    public function selectFirstYear() {
+        $Moods = new Moods;
+        $record = $Moods->orderBy("date_start")->first();
+        $year   = explode(" ",$record->date_start);
+        $years = explode("-",$year[0]);
+        return $years[0];
     }
     
 }

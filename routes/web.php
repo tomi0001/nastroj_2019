@@ -22,6 +22,18 @@ Route::get('/Main/{year?}/{month?}/{day?}/{action?}', "ControllerMain@main");
 Route::get('/Mood/add', "ControllerMood@add");
 Route::get('/Mood/showDescription',"ControllerMood@showDescription");
 Route::get('/Mood/delete',"ControllerMood@delete");
+Route::get("/Mood/addDescription","ControllerMood@addDescription");
+Route::get("/Mood/editDescription","ControllerMood@editDescription");
+
+Route::get("/Produkt/Search","ControllerSearch@main");
+Route::get("/Produkt/Search_action","ControllerSearch@searchAction");
+Route::get("/Produkt/actionAI","ControllerSearch@searchAI");
+
+Route::get("/Drugs/addDrugs","ControllerMood@addDrugs");
+Route::get("/Drugs/show","ControllerMood@showDrugs");
+Route::get("/Drugs/Delete","ControllerMood@deleteDrugs");
 
 Route::get('/Sleep/add', "ControllerMood@addSleep");
 Route::get('/Sleep/delete', "ControllerMood@deleteSleep");
+
+Route::get("/PDF/generate","ControllerSearch@savePDF");

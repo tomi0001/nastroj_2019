@@ -11,15 +11,16 @@
 #body_register {
     width: 1300px;
     min-height: 1000px;
-    background-color: #1A70AC;
+    
     margin-left: auto;
     margin-right: auto;
     border-radius: 25px;
     
-    background-color: rgba(26,112,172,0.7);
+    background-color: rgba(0,0,0,0.8);
     
     
 }
+
 .table-borderless > tbody > tr > td,
 .table-borderless > tbody > tr > th,
 .table-borderless > tfoot > tr > td,
@@ -29,7 +30,8 @@
     border: none;
 }
 tr.border {
-    border-bottom: 2pt solid #243E78;
+    border-bottom: 2px solid #243E78;
+    
 }
 #login {
     width: 700px;
@@ -69,7 +71,7 @@ table.login {
 
 #menu {
     width: 100%;
-    background-color: #243D8C;
+    background-color: #08173a;
     min-height: 50px;
     margin-left: auto;
     text-align: center;
@@ -101,6 +103,18 @@ div.menu {
     
     float: left;
     
+}
+
+div.searchaction {
+    width: 90%;
+    min-height: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    
+    border-radius: 23px;
+}
+tr.search {
+    height: 140px;
 }
 a.menu {
     color: white;
@@ -140,13 +154,13 @@ height: 550px;
     
 }
 span.kalendar {
-    color: #0E2948;
+    color: #AFA485;
     
 }
 span.title {
     font-size: 25px;
     text-align: center;
-    color: #D5D315;
+    color: #AFA485;
     font-weight: bold;
 }
 div.cell_active {
@@ -161,9 +175,9 @@ div.cell_active {
 div.cell {
     height: 100%;
     padding-top: 23px;
-    background-color: #366791;
+    background-color: #7599cb;
     opacity: 0.7;
-    border-radius: 15px;
+    border-radius: 5px;
     
 }
 div.cell-10 {
@@ -326,7 +340,7 @@ div.cell10 {
 
 
 div.levelsleep {
-    background-color: #6C1670;
+    background-color: #6A2062;
     border-radius: 15px;
 
     color: black;
@@ -334,13 +348,12 @@ div.levelsleep {
 }
 td.bold {
     font-weight: bold;
-    color: #192B52;
+    color: #24391A;
 }
 td.boldTitle {
     font-weight: bold;
     font-size: 22px;
     color: white;
-
     
 }
 div.description {
@@ -535,7 +548,7 @@ div.addMood {
     
 }
 table.addMood {
-    color: yellow;
+    color: #8E3703;
     text-align: center;
     
     
@@ -543,9 +556,149 @@ table.addMood {
 }
 td.center {
     
-
+    text-align: center;
+    color: #AFA485;
   
 }
+th.center {
+    
+    text-align: center;
+    color: #AFA485;
+  
+}
+td.mini {
+    font-size: 13px;
+    text-align: center;
+    color: #AFA485;
+}
+div.titleMood {
+        width: 100%;
+    min-height: 260px;
+    background-color: rgb(69,142,216,0.5);
+    margin-left: auto;
+    color: #32450E;
+    margin-right: auto;
+    border-radius: 25px;
+    border-left: medium solid #14283F;
+    border-right: medium solid #14283F;
+    border-bottom: medium solid #14283F;
+        border: 2px solid rgb(20, 40, 63,0.5);
+    
+}
+div.titleMoodForDay {
+    background-color: #3A8088;
+    border-radius: 25px;
+    height: 25px;
+    
+}
+div.title {
+    width: 100%;
+    background-color: #3C73A6;
+    border-radius: 7px;
+    font-size: 21px;
+    color: white;
+}
+div.titleSleep {
+        width: 100%;
+    min-height: 260px;
+    background-color: rgb(0,0,18,0.8);
+    margin-left: auto;
+    color: #32450E;
+    margin-right: auto;
+    border-radius: 25px;
+    border-left: medium solid #1E4062;
+    border-right: medium solid #1E4062;
+    border-bottom: medium solid #1E4062;
+        border: 2px solid rgb(30, 64, 98,0.5);
+    
+}
+div.addDrugssss {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    min-height: 120px;
+}
+div.newline {
+    min-height: 5px;
+    
+    float: left;
+    clear: both;
+    
+}
+div.tr {
+    width: 100%;
+    background-color: #1B710A;
+    border-radius: 6px;
+    min-height: 50px;
+    opacity: 0.8;
+    float: left;
+    clear: both;
+    
+}
+div.trDrugs {
+        width: 100%;
+    clear: both;
+    
+    border-radius: 6px;
+    min-height: 50px;
+    
+
+    margin-left: auto;
+    margin-right: auto;
+
+}
+div.tdDrugs {
+        width: 27%;
+    font-size: 18px;
+    background-color: #1B710A;
+    color: white;
+    opacity: 0.8;
+    text-align: center;
+    border-radius: 6px;
+    float: left;
+    padding-top: 4px;
+    min-height: 40px;
+    padding-right: 20px;
+    
+    
+}
+div.deleteDrugs {
+    text-align: left;
+    
+    
+}
+div.td {
+    width: 50%;
+    font-size: 18px;
+    color: white;
+    float: left;
+    padding-right: 30px;
+    margin: 12 auto;
+}
+div.space {
+    min-width: 12px;
+    float: left;
+    
+}
+div.tdCenter {
+        width: 50%;
+    font-size: 18px;
+    color: white;
+    
+
+    margin: 12 auto;
+}
+div.background {
+ 
+ background-color: #14283F;
+ border-radius: 26px 26px 0px 0px;
+ height: 30px;
+ opacity: 0.5;
+ color: white;
+ font-size: 21px;
+}
+
 td.white {
     color: white;
 }
@@ -555,6 +708,28 @@ div.center {
     margin-right: auto;
     text-align: center;
     
+    
+}
+table.drugsList {
+    width: 100%;
+    
+    
+}
+div.search {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+div.drugsList {
+    background-color: red;
+}
+div.showDrugs {
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    
+    
+    text-align: center;
     
 }
 div.center2 {

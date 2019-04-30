@@ -24,6 +24,7 @@ use App\Forwarding_drug as Forwarding_drug;
 class drugs  {
     public $arrayDrugsId = [];
     public function checkDrugs($name,$dose,$date,$time) {
+        
         for ($i = 0;$i < count($name);$i++) {
             if ($name[$i] == "") {
                 array_push($this->errors, "Musisz uzupełnić nazwę któregoś z leków");
@@ -36,6 +37,7 @@ class drugs  {
         }
     }
     public function addDrugs($name,$dose,$date,$type) {
+        
         $Drug = new Drug;
         $Drug->name = $name;
         $Drug->dose = $dose;
@@ -54,6 +56,30 @@ class drugs  {
             $Forwarding->id_mood = $this->idMood;
             $Forwarding->save();
             
+        }
+        
+    }
+    public function selectDrugs($idMood) {
+        $Drug = new Forwarding_drug;
+        $list = $Drug->join("drugs","forwarding_drugs.id_drugs","drugs.id")
+                ->selectRaw("drugs.name as name")
+                ->selectRaw("drugs.dose as dose")
+                ->selectRaw("right(drugs.date,8) as date")
+                ->selectRaw("drugs.type as type")
+                ->selectRaw("drugs.id as id")
+                ->where("drugs.id_users",Auth::User()->id)
+                ->where("forwarding_drugs.id_mood",$idMood)->get();
+        return $list;
+    }
+    public function deleteDrugs($idDrugs) {
+        //print "jhanosi";
+        $Forwarding = new Forwarding_drug;
+        $Drug = new Drug;
+        $bool = $Drug->where("id_users",Auth::User()->id)
+                ->where("id",$idDrugs)->delete();
+        if ($bool == true) {
+            //print "jano";
+            $Forwarding->where("id_drugs",$idDrugs)->delete();
         }
         
     }
